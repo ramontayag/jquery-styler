@@ -1,33 +1,33 @@
-/************************************
- * Add Or Switch Stylesheet
+/************************************************************
+ * jQuery Styler 0.0.1
+ *
  * This only works with browsers that support localStorage
- *
  * This has been updated to use localStorage instead of cookies
- * Original code by Molokoloco at https://github.com/molokoloco/FRAMEWORK (it was called styleSwitch)
+ * Original code by Molokoloco at https://github.com/molokoloco/FRAMEWORK (it was called styleswitch)
  *
- * Plugin that loads (at the first demand) and switches stylesheets:
+ * Plugin that loads and switches stylesheets:
  * Manage links to change style
- * Add stylesheet to head, if not exist
- * If already exist, switch style with the disabled attribute
- * Prevent changing styles who are not related to theme : No modification on styles without id attribute
- * Prevent changing other styles who are not related to theme
- * Stock and autoload user style preference, with localStorage
-
-<head>
-  <link rel="stylesheet" type="text/css" media="all" href="css/styles.css" id="themeDefault"/>
-</head>
-<body>
-  <ul>
-    <li><a href="javascript:void(0);" rel="css/styles.css" class="styler">Original</a></li>
-    <li><a href="javascript:void(0);" rel="css/style_light.css" class="styler">Blanc</a></li>
-    <li><a href="javascript:void(0);" rel="css/style_dark.css" class="styler">Sombre</a></li>
-  </ul>
-</body>
-
-// JS USE CASE
-  $('a.styler').styler(); // When the user clicks, then the rel stylesheet will be swapped in
-  $.styler('swap', 'css/styles.css'); // Direct style change with JS call
-*/
+ * Add stylesheet to head, if the stylesheet does not exist
+ * If the stylsheet already exists, switch style with the disabled attribute
+ * It will only deal with styles that have the "jquery-styler" class, so it doesn't mess with your other stylesheets
+ *
+ * Example:
+ * 
+ * <head>
+ *   <link rel="stylesheet" type="text/css" media="all" href="css/styles.css" class="jquery-styler"/>
+ * </head>
+ * <body>
+ *   <ul>
+ *     <li><a href="javascript:void(0);" rel="css/styles.css" class="styler">Original</a></li>
+ *     <li><a href="javascript:void(0);" rel="css/style_light.css" class="styler">Blanc</a></li>
+ *     <li><a href="javascript:void(0);" rel="css/style_dark.css" class="styler">Sombre</a></li>
+ *   </ul>
+ * </body>
+ * 
+ * // JS USE CASE
+ * $('a.styler').styler(); // When the user clicks, then the rel stylesheet will be swapped in
+ * $.styler('swap', 'css/styles.css'); // Direct style change with JS call
+ ************************************************************/
 
 (function($) {
   var methods = {
@@ -44,7 +44,7 @@
     },
     //Pass a path to the style to load
     load: function(path) {
-      $('head').append('<link rel="stylesheet" class="styler" type="text/css" href="' + path + '"/>')
+      $('head').append('<link rel="stylesheet" class="jquery-styler" type="text/css" href="' + path + '"/>')
     },
     swap: function(path) {
       var exists = false;
@@ -78,12 +78,12 @@
       return $(this).click(function (event) {
         event.preventDefault();
         $.fn.styler('swap', $(this).attr('rel'));
-        $(this).blue();
+        $(this).blur();
       });
     },
     // returns the styles that are already in the header that can be governed by styler (it has the styler class)
     styles: function() {
-      return $('link.styler[rel*=style]')
+      return $('link.jquery-styler[rel*=style]')
     }
   };
 
