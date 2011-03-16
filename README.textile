@@ -1,0 +1,30 @@
+h1. jQuery Styler
+
+This has been updated to use localStorage instead of cookies, since the code originally came from Molokoloco at https://github.com/molokoloco/FRAMEWORK (it was called styleswitch)
+
+This is a jQuery plugin that:
+
+* Plugin that loads and switches stylesheets:
+* Manage links to change style
+* Add stylesheet to head, if the stylesheet does not exist
+* If the stylsheet already exists, switch style with the disabled attribute
+* It will only deal with styles that have the "jquery-styler" class, so it doesn't mess with your other stylesheets
+
+h2. Usage
+
+<pre>
+  <head>
+    <link rel="stylesheet" type="text/css" media="all" href="css/styles.css" class="jquery-styler"/>
+  </head>
+  <body>
+    <ul>
+      <li><a href="#" rel="css/styles.css" class="styler">Original</a></li>
+      <li><a href="#" rel="css/style_light.css" class="styler">Blanc</a></li>
+      <li><a href="#" rel="css/style_dark.css" class="styler">Sombre</a></li>
+    </ul>
+  </body>
+
+  // JS USE CASE
+  $('a.styler').styler(); // When the user clicks, then the rel stylesheet will be swapped in
+  $.fn.styler('swap', 'css/styles.css'); // Direct style change with JS call
+<pre>
